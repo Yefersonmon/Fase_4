@@ -62,6 +62,18 @@ class ServicioTests(unittest.TestCase):
         with self.assertRaises(ServicioNoDisponibleError):
             servicio.calcular_costo(1)
 
+    def test_disponibilidad_se_actualiza_y_solo_acepta_booleanos(self) -> None:
+        servicio = self.servicios[1]
+        servicio.disponible = False
+        with self.assertRaises(ServicioNoDisponibleError):
+            servicio.calcular_costo(1)
+
+        with self.assertRaises(ServicioInvalidoError):
+            servicio.disponible = "sí"
+
+        servicio.disponible = True
+        self.assertEqual(servicio.calcular_costo(1), 50)
+
     def test_detecta_costos_fuera_del_rango_finito(self) -> None:
         servicio = ServicioReservaSala("Sala Norte", 1e308, 20)
         with self.assertRaises(CalculoInconsistenteError):
