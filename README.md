@@ -104,6 +104,6 @@ flowchart TD
 | Integrante | Parte |
 |---|---|
 | Yefersonmon | Excepciones y registro de logs |
-| pendiente | Entidad base y Cliente |
+| wolf1829 | Entidad base y Cliente |
 | DianaCastro-04 | Servicio y servicios especializados |
 | pendiente | Reserva y simulaciones (main.py) |
