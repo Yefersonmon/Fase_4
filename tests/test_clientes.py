@@ -1,6 +1,6 @@
-"""Prueba secuencial de EntidadBase y Cliente para el sistema Software FJ."""
+"""Prueba secuencial de EntidadBase y Clientes para el sistema Software FJ."""
 
-from .cliente import Cliente
+from .cliente import Clientes
 from .excepciones import ClienteInvalidoError
 from .registro_logs import ARCHIVO_LOG, configurar_logs, registrar_evento
 
@@ -8,7 +8,7 @@ from .registro_logs import ARCHIVO_LOG, configurar_logs, registrar_evento
 def ejecutar_pruebas_secuenciales() -> None:
     """Ejecuta casos válidos e inválidos paso a paso y verifica el log."""
     configurar_logs()
-    registrar_evento("Inicio de prueba secuencial de EntidadBase y Cliente.")
+    registrar_evento("Inicio de prueba secuencial de EntidadBase y Clientes.")
 
     print("--- Paso 1: Crear un cliente válido ---")
     try:
