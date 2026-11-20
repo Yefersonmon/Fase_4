@@ -11,7 +11,6 @@ class EntidadBase(ABC):
     """Clase abstracta que define atributos y contratos comunes de una entidad."""
 
     def __init__(self, id_entidad: int, activa: bool = True) -> None:
-        # Validamos el identificador y el estado inicial usando métodos reutilizables
         self._id_entidad = self._validar_id(id_entidad)
         self._activa = True
         self.activa = activa
@@ -64,13 +63,20 @@ class EntidadBase(ABC):
 
     @staticmethod
     def _validar_numero_finito(valor: float, campo: str, minimo: float = 0) -> float:
-        """Valida valores numéricos finitos sin aceptar booleanos ni NaN/Inf."""
+        """Valida valores numéricos finitos sin aceptar booleanos, NaN, Inf o desbordamientos."""
         if isinstance(valor, bool) or not isinstance(valor, (int, float)):
             raise ValidacionError(
                 f"El campo '{campo}' debe ser numérico.",
                 detalle=valor,
             )
-        numero = float(valor)
+        try:
+            numero = float(valor)
+        except OverflowError as exc:
+            raise ValidacionError(
+                f"El campo '{campo}' excede el rango numérico permitido.",
+                detalle=valor,
+            ) from exc
+
         if not isfinite(numero) or numero < minimo:
             raise ValidacionError(
                 f"El campo '{campo}' debe ser un número finito mayor o igual a {minimo}.",
